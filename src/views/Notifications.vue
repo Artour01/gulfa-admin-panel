@@ -1,6 +1,5 @@
 <template>
   <div id="notifications">
-    currentNotificationId: {{currentNotificationId}}
     <TopRow
         @search="searchValue = $event"
         :btn-background="'#ED1C24'"
@@ -84,7 +83,6 @@ export default {
       this.dialogVisible = false
     },
     openConfirmWindow(id) {
-      console.log('WWWWWWWWW', id)
       this.currentNotificationId = id
       this.dialogVisible = true
     }
