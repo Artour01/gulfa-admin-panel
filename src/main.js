@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueMeta from 'vue-meta'
 
 import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css';
@@ -10,6 +11,7 @@ Vue.use(ElementUI, {locale});
 import Vuelidate from 'vuelidate'
 
 Vue.use(Vuelidate)
+Vue.use(VueMeta)
 
 import router from './router'
 

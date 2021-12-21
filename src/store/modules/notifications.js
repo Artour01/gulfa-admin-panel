@@ -11,7 +11,7 @@ export default {
         }
     },
     actions: {
-        async getNotifications({commit, rootState}) {
+        async fetchNotifications({commit, rootState}) {
             await api.GET('/Notifications', rootState.token)
                 .then(({data}) => {
                     commit('setNotifications', data)
@@ -22,30 +22,37 @@ export default {
             commit('setLoading')
             try {
                 await api.POST('/Notifications', data, rootState.token)
-                await dispatch('getNotifications')
+                await dispatch('fetchNotifications')
                 dispatch('setSuccessMessage')
             } catch {
                 dispatch('setErrorMessage')
             } finally {
                 commit('unsetLoading')
             }
+        },
+        async deleteNotification({dispatch, rootState}, id) {
+            await api.DELETE(`/Notifications/${id}`, rootState.token)
+                .then(() => {
+                    dispatch('fetchNotifications')
+                })
+                .catch(console.dir)
         }
     },
     getters: {
         getNotifications(state) {
             return (searchString) => {
                 return state.notifications.map(el => {
-                    let {postedTime, body} = el
+                    let {postedTime, body, id} = el
                     postedTime = new Date(`${postedTime}Z`)
                     postedTime = new Intl.DateTimeFormat('en-GB', {
                         year: 'numeric', month: 'numeric', day: 'numeric',
                         hour: 'numeric', minute: 'numeric', hour12: true
                     }).format(postedTime).toUpperCase()
-                    return {postedTime, body}
+                    return {postedTime, body, id}
                 }).filter(el => {
                     return search([el.body], searchString)
                 })
             }
-        }
+        },
     }
 }

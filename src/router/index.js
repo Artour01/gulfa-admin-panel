@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import VueRouter from "vue-router";
-import Promo from "@/views/Promo";
+import VueRouter from 'vue-router'
+import Promo from '@/views/Promo'
 
 Vue.use(VueRouter)
 
@@ -18,100 +18,122 @@ const Employee = () => import('../views/Workers')
 
 const routes = [
     {path: '/', redirect: '/products'},
-    {path: '/auth', meta: {layout: 'auth'}, redirect: '/auth/signin'},
-    {name: 'auth',path: '/auth/:mode', meta: {layout: 'auth'}, component: Auth},
-    {name: 'drivers',path: '/drivers', meta: {layout: 'main'}, component: Drivers,
+    {path: '/auth', meta: {layout: 'auth', name: 'SignIn'}, redirect: '/auth/signin'},
+    {name: 'auth', path: '/auth/:mode', meta: {layout: 'auth', name: 'Auth'}, component: Auth},
+    {
+        name: 'drivers', path: '/drivers', meta: {layout: 'main', name: 'Drivers'}, component: Drivers,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'orders',path: '/orders', meta: {layout: 'main'}, component: Orders,
+        },
+    },
+    {
+        name: 'orders', path: '/orders', meta: {layout: 'main', name: 'Orders'}, component: Orders,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'notifications',path: '/notifications', meta: {layout: 'main'}, component: Notifications,
+        },
+    },
+    {
+        name: 'notifications', path: '/notifications', meta: {layout: 'main', name: 'Notifications'}, component: Notifications,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'payments',path: '/payments', meta: {layout: 'main'}, component: Payments,
+        },
+    },
+    {
+        name: 'payments', path: '/payments', meta: {layout: 'main', name: 'Payments'}, component: Payments,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'products',path: '/products', meta: {layout: 'main'}, component: Products,
+        },
+    },
+    {
+        name: 'products', path: '/products', meta: {layout: 'main', name: 'Products'}, component: Products,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'sale',path: '/sale', meta: {layout: 'main'}, component: Sale,
+        },
+    },
+    {
+        name: 'sale', path: '/sale', meta: {layout: 'main', name: 'Sale'}, component: Sale,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'customers',path: '/customers', meta: {layout: 'main'}, component: Users,
+        },
+    },
+    {
+        name: 'customers', path: '/customers', meta: {layout: 'main', name: 'Customers'}, component: Users,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'banners', path: '/banners', meta: {layout: 'main'}, component: Banners,
+        },
+    },
+    {
+        name: 'banners', path: '/banners', meta: {layout: 'main', name: 'Banners'}, component: Banners,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'cities', path: '/cities', meta: {layout: 'main'}, component: Cities,
+        },
+    },
+    {
+        name: 'cities', path: '/cities', meta: {layout: 'main', name: 'Cities'}, component: Cities,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'Employee', path: '/workers', meta: {layout: 'main'}, component: Employee,
+        },
+    },
+    {
+        name: 'Employee', path: '/workers', meta: {layout: 'main', name: 'Workers'}, component: Employee,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token') && JSON.parse(localStorage.getItem('roles'))?.includes('GulfaOwner')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }},
-    {name: 'promo', path: '/promo', meta: {layout: 'main'}, component: Promo,
+        },
+    },
+    {
+        name: 'promo', path: '/promo', meta: {layout: 'main', name: 'Promo'}, component: Promo,
         beforeEnter(to, from, next) {
             if (localStorage.getItem('token') && JSON.parse(localStorage.getItem('roles'))?.includes('GulfaOwner')) {
-                next();
+                next()
             } else {
-                next({path: '/auth/signin'});
+                next({path: '/auth/signin'})
             }
-        }}
+        },
+    },
 ]
 
 export default new VueRouter({
     mode: 'history',
-    base: "/",
-    routes
+    base: '/',
+    routes,
 })
