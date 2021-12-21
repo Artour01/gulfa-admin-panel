@@ -15,6 +15,11 @@ import MainLayout from "@/layouts/MainLayout";
 
 export default {
   name: 'App',
+  metaInfo() {
+    return {
+      title: `${this.$route.meta.name} | Gulfa Admin`,
+    }
+  },
   components: {
     MainLayout,
     AuthLayout
