@@ -11,10 +11,6 @@
             @click="$router.push('/workers')"
             class="title">Employee</p>
         <p
-            v-if="getAdminRole"
-            @click="$router.push('/promo')"
-            class="title">Promo</p>
-        <p
             @click="logOut"
             class="title">Logout</p>
       </div>

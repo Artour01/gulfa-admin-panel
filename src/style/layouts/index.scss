@@ -109,6 +109,15 @@
               }
             }
 
+            &.promo {
+              background-image: url('../assets/icons/menu/sale.svg');
+
+              &.active {
+                background-color: #005CB9;
+                background-image: url('../assets/icons/menu/sale-select.svg');
+              }
+            }
+
             &.cities {
               background-image: url('../assets/icons/menu/cities.svg');
 

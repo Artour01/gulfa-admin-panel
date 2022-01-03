@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Promo from '@/views/Promo'
+
 
 Vue.use(VueRouter)
 
@@ -15,6 +15,7 @@ const Users = () => import('../views/Users')
 const Banners = () => import('../views/Banners')
 const Cities = () => import('../views/Cities')
 const Employee = () => import('../views/Workers')
+const Promo = () => import('../views/Promo')
 
 const routes = [
     {path: '/', redirect: '/products'},
