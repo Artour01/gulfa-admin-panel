@@ -51,6 +51,9 @@ export default {
           name: 'Sale',
         },
         {
+          name: 'Promo',
+        },
+        {
           name: 'Notifications',
         },
         {
