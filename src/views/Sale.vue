@@ -21,6 +21,7 @@
     />
     <edit-sale-n
         v-if="showEditSale"
+        :sale-id="saleId"
         v-model="showEditSale"
     />
   </div>
@@ -54,8 +55,9 @@ export default {
   },
   methods: {
     ...mapActions(['getSales', 'getProducts', 'setCurrentSale']),
-    async editSale(id) {
-      await this.setCurrentSale(id)
+    editSale(id) {
+      this.setCurrentSale(id)
+      this.saleId = id
       this.showEditSale = true
     }
   }

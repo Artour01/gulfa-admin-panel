@@ -32,19 +32,19 @@
             </el-date-picker>
           </el-form-item>
 
-          <el-form-item label="Title" prop="title">
-            <el-input v-model="form.title" autocomplete="off"></el-input>
+          <el-form-item label="Title" prop="title_en">
+            <el-input v-model="form.title_en" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="Title (Arabic)" prop="arTitle">
-            <el-input v-model="form.arTitle" autocomplete="off"></el-input>
+          <el-form-item label="Title (Arabic)" prop="title_ar">
+            <el-input v-model="form.title_ar" autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item label="Description" prop="description">
             <el-input
                 type="textarea"
                 :autosize="{ minRows: 3}"
-                v-model="form.description"
+                v-model="form.description_en"
             >
             </el-input>
           </el-form-item>
@@ -53,21 +53,21 @@
             <el-input
                 type="textarea"
                 :autosize="{ minRows: 3}"
-                v-model="form.arDescription"
-            >
-            </el-input>
-          </el-form-item>
-          <el-form-item label="Select Products" prop="typeOfSale">
-            <el-select v-model="form.shopItemsId" placeholder="" style="width: 100%" collapse-tags multiple>
-              <el-option
-                  v-for="item of getProducts"
-                  :label="item.title"
-                  :value="item.id"
-                  :key="item.id"
-              ></el-option>
-            </el-select>
+                v-model="form.description_ar"
+            />
           </el-form-item>
         </div>
+
+        <el-form-item label="Select Products" prop="typeOfSale">
+          <el-select v-model="form.shopItemsId" placeholder="" style="width: 100%" multiple>
+            <el-option
+                v-for="item of getProducts"
+                :label="item.title"
+                :value="item.id"
+                :key="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
 
       </el-form>
     </div>
@@ -95,6 +95,10 @@ export default {
     value: {
       type: Boolean,
       default: false
+    },
+    saleId: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -102,14 +106,14 @@ export default {
       rules,
       loadingSaveChanges: false,
       form: {
-        description: '',
-        arDescription: '',
-        title: '',
-        arTitle: '',
+        description_en: '',
+        description_ar: '',
+        title_en: '',
+        title_ar: '',
         startDate: null,
         endDate: null,
         shopItemsId: [],
-        percent: 1
+        percent: 1,
       }
     }
   },
@@ -136,16 +140,20 @@ export default {
       let vm = this
       this.$refs['validation-product-form'].validate(async (valid) => {
         if (valid) {
-          let {arTitle: title, arDescription: description, startDate, endDate, ...data} = this.form
-          startDate = startDate.toLocaleDateString('en-GB')
-          endDate = endDate.toLocaleDateString('en-GB')
-          let [dayS, monthS, yearS] = startDate.split('/')
-          let [dayE, monthE, yearE] = endDate.split('/')
+          let {title_en, description_en, title_ar, description_ar, startDate, endDate, ...data} = this.form
+          let [yearS, monthS, dayS] = startDate.split('-')
+          let [yearE, monthE, dayE] = endDate.split('-')
           startDate = `${yearS}-${monthS}-${dayS}T00:00:00`
           endDate = `${yearE}-${monthE}-${dayE}T00:00:00`
-          data = {...data, startDate, endDate}
-          let dataAr = {title, description}
-          await this.$store.dispatch('postSale', {data, dataAr})
+
+          const cultureViewModel = [
+            {id: 'en', title: title_en, description: description_en},
+            {id: 'ar', title: title_ar, description: description_ar},
+          ]
+
+          data = {...data, startDate, endDate, cultureViewModel}
+
+          await this.$store.dispatch('putSale', {data, id: this.saleId})
           this.closeModalWindow()
         } else {
           await vm.$store.dispatch('setErrorMessage', 'Error with validation')
@@ -154,7 +162,7 @@ export default {
       });
     },
     async deleteSale() {
-      await this.$store.dispatch('deleteSale')
+      await this.$store.dispatch('deleteSale', this.saleId)
       this.closeConfirmWindow()
       this.closeModalWindow()
     },
