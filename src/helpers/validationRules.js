@@ -122,14 +122,14 @@ export default {
             trigger: 'blur'
         }
     ],
-    description: [
+    description_en: [
         {
             required: true,
             message: 'Please input a description',
             trigger: 'blur'
         }
     ],
-    arDescription: [
+    description_ar: [
         {
             required: true,
             message: 'Please input a description',
@@ -148,14 +148,14 @@ export default {
             trigger: 'blur'
         }
     ],
-    title: [
+    title_en: [
         {
             required: true,
             message: 'Please input a title',
             trigger: 'blur'
         }
     ],
-    arTitle: [
+    title_ar: [
         {
             required: true,
             message: 'Please input a title',
