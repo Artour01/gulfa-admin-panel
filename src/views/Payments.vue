@@ -12,11 +12,13 @@
     >
       <el-table-column
           prop="paymentId"
-          label="Payment ID">
+          label="Payment ID"
+          width="550">
       </el-table-column>
       <el-table-column
           prop="orderId"
-          label="Order ID">
+          label="Order ID"
+          width="80">
       </el-table-column>
       <el-table-column
           prop="dateTime"
@@ -28,7 +30,8 @@
       </el-table-column>
       <el-table-column
           prop="price"
-          label="Price">
+          label="Price"
+          width="80">
       </el-table-column>
       <el-table-column
           prop="paymentMethod"

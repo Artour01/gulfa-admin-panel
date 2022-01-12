@@ -1,8 +1,8 @@
 <template>
   <div class="profile">
     <div class="base" v-click-outside="hide" @click="openClose">
-      <div class="logo"></div>
-      <p class="title">Admin John</p>
+      <i class="el-icon-user user-icon" />
+      <p class="title">{{email}}</p>
     </div>
     <transition name="slide-fade">
       <div class="menu" v-if="value">
@@ -20,12 +20,17 @@
 
 <script>
 import ClickOutside from 'vue-click-outside'
+import {mapState} from 'vuex'
 export default {
   name: "AdminMenu",
   props: ['value'],
   computed: {
+    ...mapState(['me']),
     getAdminRole() {
       return this.$store.state.roles.includes('GulfaOwner')
+    },
+    email() {
+      return this.me?.email
     }
   },
   methods: {
@@ -40,6 +45,7 @@ export default {
     logOut() {
       localStorage.removeItem('token')
       localStorage.removeItem('roles')
+      localStorage.removeItem('me')
       this.$store.commit('setToken', '')
       this.$store.commit('setRoles', [])
       this.$router.push('auth')
@@ -51,5 +57,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+.user-icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
 </style>
