@@ -83,11 +83,15 @@ export default {
     async logIn() {
       try {
         this.loading = true
-        let {data: {token, roles}} = await api.POST('/admin/login', this.form)
+        const {data: {token, roles}} = await api.POST('/admin/login', this.form)
+
+        const me = { email: this.form.email }
+        localStorage.setItem('me', JSON.stringify(me))
         localStorage.setItem('token', token)
         localStorage.setItem('roles', JSON.stringify(roles))
         this.$store.commit('setToken', token)
         this.$store.commit('setRoles', roles)
+        this.$store.commit('setMe', me)
         this.$router.push('/')
       } catch (e) {
         await this.setErrorMessage(e?.response?.data?.title || 'Error with authorization')
