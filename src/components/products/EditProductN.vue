@@ -111,8 +111,8 @@ export default {
     }
   },
   async created() {
-    this.form.volume = `${this.getSelectedProduct.volume}`
-    this.form.price = `${this.getSelectedProduct.price}`
+    this.form.volume = this.getSelectedProduct.volume
+    this.form.price = this.getSelectedProduct.price
     this.form.title = this.getSelectedProduct.title
     this.form.arTitle = this.getSelectedProduct.titleAr
     this.form.arDescription = this.getSelectedProduct.descriptionAr
